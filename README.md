@@ -1,36 +1,76 @@
-# Forecasting and the Prediction of furniture sales in a superstore using time series analysis 
-## Time series analysis
-Time series analysis comprises methods for analyzing time series data in order to extract meaningful statistics and other 
-characteristics of the data
-This dataset consists of daily sales data of various products at a 
-superstore
-## Introduction
-You will need to apply Time Series(ARIMA) to build model to 
-predict and forecast the sales of furniture for the next one year 
-i.e. predict future values based on previously observed values. 
-We have a 4-year furniture sales data.
-## Evaluation
-Evaluation will be based on:
-• Data Exploration & Preparation (15%)
-• Feature Engineering (20%)
-• Model Comparison (30%)
-• Model Selection (25%)
-• Presentation (10%)
-## Data Preparation
-Remove unwanted columns that is not needed and check missing 
-values. Aggregate sales data by date and finally index it with the 
-time series data.
-## Feature Engineering
-Check the stationarity of the data and decide the next step to be 
-taken. Also decompose the data for further clarification
-and apply the time series model on the data
-## Model Comparison
-Perform parameter selection to find optimal set of parameters that 
-yields the best performance for the model.
-## Model Selection
-Compare predicted value to the real values and set the forecast 
-from the start to the end of the data
+# Furniture Sales Forecasting using SARIMA
 
-## Problem statement 
-We are using Superstore sales data for furniture sales between 2014 to 2017 and apply a SARIMA model to forecast for 2018
+This project provides a comprehensive time series analysis and forecasting model for furniture sales using historical data from a Superstore dataset. The primary goal is to identify sales patterns, check for stationarity, and build a Seasonal AutoRegressive Integrated Moving Average (SARIMA) model to predict future sales.
 
+## 📌 Project Overview
+
+Sales forecasting is a crucial component of business strategy, helping with inventory management and financial planning. This notebook walks through the data science workflow of transforming raw transactional data into a monthly time series forecast.
+
+## 🛠️ Requirements
+
+To run this notebook, you will need the following Python libraries:
+
+* **Pandas**: Data manipulation and analysis.
+* **NumPy**: Numerical computing.
+* **Matplotlib**: Data visualization.
+* **Statsmodels**: Statistical modeling, including Time Series analysis (ARIMA/SARIMA) and stationarity tests.
+
+You can install the dependencies using:
+
+```bash
+pip install pandas numpy matplotlib statsmodels
+
+```
+
+## 📊 Dataset
+
+The analysis uses a `Super Store.csv` file.
+
+* **Scope**: Focused exclusively on the **Furniture** category.
+* **Timeframe**: Data spans from 2014 to 2017.
+* **Target Variable**: Daily sales aggregated and resampled to the start of each month (`MS`).
+
+## 🚀 Workflow
+
+### 1. Data Cleaning and Preparation
+
+* Filtered the dataset for Furniture sales.
+* Removed non-essential columns (Row ID, Order ID, etc.).
+* Handled date-time formats and sorted data chronologically.
+* Aggregated sales by date and resampled the data to monthly averages.
+
+### 2. Exploratory Data Analysis (EDA)
+
+* Visualized sales trends to identify seasonality.
+* **Observation**: Sales typically drop at the beginning of the year and peak toward the end of the year (Q4 holiday season).
+
+### 3. Stationarity Testing
+
+* Applied the **Augmented Dickey-Fuller (ADF) Test**.
+* Results showed the time series was stationary (p-value < 0.05), indicating it was suitable for ARIMA modeling.
+
+### 4. Time Series Decomposition
+
+* Decomposed the series into **Trend**, **Seasonality**, and **Residuals** using `seasonal_decompose`.
+
+### 5. Model Selection & Fitting
+
+* Performed a **Grid Search** to find the optimal parameters $(p, d, q) \times (P, D, Q, s)$ based on the lowest **AIC (Akaike Information Criterion)** score.
+* Fitted a **SARIMAX** model.
+
+### 6. Validation and Evaluation
+
+* Validated the model using a rolling forecast (One-step ahead forecast) for the final year.
+* **Metric**: Calculated **Root Mean Squared Error (RMSE)** to measure prediction accuracy.
+
+## 📈 Results
+
+* The model successfully captured the seasonal peaks and troughs of the furniture market.
+* The forecast provides a 13-month outlook into the future with confidence intervals to account for uncertainty.
+
+## 📂 Project Structure
+
+* `Furniture_Sales_Forecasting.ipynb`
+## 💡 Conclusion
+
+The analysis confirms that furniture sales are highly seasonal. Businesses can use this model to anticipate high-demand periods in November and December and prepare for the "off-season" at the start of the year.
